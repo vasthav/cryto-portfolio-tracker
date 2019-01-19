@@ -12,8 +12,8 @@ A simple crypto currency portfolio management spreadsheet and tracker using Goog
 
 ### How to use?
 There are two sections to the spreadsheet.
-a. Portfolio Tracker
-b. Market Watch
+1. Portfolio Tracker
+2. Market Watch
 
 #### Portfolio Tracker
 This is to keep track of your present cryptocurrency portfolio and the profit loss in both USD and INR
@@ -28,11 +28,11 @@ Once filled go and run the app script as mentioned above. And the Values will be
 This keeps track of the potential cryptocurrency and their performance on different durations.
 To use the portfolio just fill in the 'Ticker' field and the app script.
 
-### Automatic updation of sheet
+### Automatic updation of spreadsheet
 This can be achieved using triggers in app script.
 1. Go to EDIT > Current Projects Triggers. It opens the G Suite Developer Hub. 
 2. Click on 'Add trigger' available at the right bottom of the page.
 3. Select the required options and Save.
 
 # LICENSE
-check the Licence file.
+Check the Licence file.
