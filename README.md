@@ -22,7 +22,8 @@ To use the portfolio tracker just fill in the feilds 4 feilds
 - Exchange 
 - Quantity
 - Buy price
-Once filled go and run the app script as mentioned above. And the Values will be automatically updated.
+- Sell price (if Any)
+Once filled go and run the app script as mentioned above. And all the other feilds/Values will be automatically updated.
 
 #### Market Watch 
 This keeps track of the potential cryptocurrency and their performance on different durations.
