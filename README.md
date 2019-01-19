@@ -28,5 +28,11 @@ Once filled go and run the app script as mentioned above. And the Values will be
 This keeps track of the potential cryptocurrency and their performance on different durations.
 To use the portfolio just fill in the 'Ticker' field and the app script.
 
+### Automatic updation of sheet
+This can be achieved using triggers in app script.
+1. Go to EDIT > Current Projects Triggers. It opens the G Suite Developer Hub. 
+2. Click on 'Add trigger' available at the right bottom of the page.
+3. Select the required options and Save.
+
 # LICENSE
 check the Licence file.
