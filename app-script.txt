@@ -1,0 +1,104 @@
+function myFunction() {
+  var sheet = SpreadsheetApp.getActiveSheet();
+  var result = getResultJSON();
+  fillMainDetails(sheet, result);
+  fillPortfolio(sheet, result);
+  fillMarketWatch(sheet, result);
+}
+
+function fillMainDetails(sheet,result){
+  sheet.getRange(2,10).setValue(result["BTC"].price_usd);
+}
+
+function fillPortfolio(sheet, result){
+  var startRow = 6;
+  var totalRow = 13;
+  var col = 4;
+  var data = sheet.getSheetValues(startRow, col, totalRow, 1);
+  var tkr = '';
+  for(var i=0;i<data.length; i++){
+    if(data[i][0]){
+      tkr = data[i][0];
+      fillDataPortfolio(sheet, result[tkr], startRow + i);
+    } else {
+      sheet.getRange(startRow+i, 3).clearContent();
+      sheet.getRange(startRow+i, 5).clearContent();
+      sheet.getRange(startRow+i, 6).clearContent();
+      sheet.getRange(startRow+i, 7).clearContent();
+      sheet.getRange(startRow+i, 9).clearContent();
+    }
+  }
+  
+}
+
+function fillDataPortfolio(sheet, tkr, i){
+//  Logger.log('---> '+i);
+//  Logger.log(JSON.stringify(tkr));
+  sheet.getRange(i, 3).setValue(tkr.name);
+  sheet.getRange(i, 9).setValue(tkr.price_btc);
+}
+
+function fillMarketWatch(sheet, result){
+ var startRow = 24;
+  var totalRow =20;
+  var col = 4;
+  var data = sheet.getSheetValues(startRow, col, totalRow, 1);
+  Logger.log('data -- > ');
+  Logger.log(data);
+  Logger.log('data -- > ');
+  var tkr = '';
+  for(var i=0;i<data.length; i++){
+    if(data[i][0]){
+      tkr = data[i][0];
+      fillDataMarketWatch(sheet, result[tkr], startRow + i);
+    } else {
+      sheet.getRange(startRow+i, 3).clearContent();
+      sheet.getRange(startRow+i, 6).clearContent();
+      sheet.getRange(startRow+i, 3).clearContent();
+      sheet.getRange(startRow+i, 5).clearContent();
+      sheet.getRange(startRow+i, 6).clearContent();
+      sheet.getRange(startRow+i, 7).clearContent();
+      sheet.getRange(startRow+i, 8).clearContent();
+      sheet.getRange(startRow+i, 9).clearContent();
+      sheet.getRange(startRow+i, 10).clearContent();
+      sheet.getRange(startRow+i, 11).clearContent();
+      sheet.getRange(startRow+i, 12).clearContent();
+    }
+  }
+}
+
+function fillDataMarketWatch(sheet, tkr, i){
+  
+  Logger.log('---> '+i);
+  Logger.log(JSON.stringify(tkr));
+  
+  sheet.getRange(i, 3).setValue(tkr.name);
+  sheet.getRange(i, 5).setValue(tkr.rank);
+  sheet.getRange(i, 6).setValue(tkr.price_btc);
+  sheet.getRange(i, 7).setValue(tkr.price_usd);
+  sheet.getRange(i, 8).setValue(tkr['24h_volume_usd']);
+  sheet.getRange(i, 9).setValue(tkr.percent_change_1h);
+  sheet.getRange(i, 10).setValue(tkr.percent_change_24h);
+  sheet.getRange(i, 11).setValue(tkr.percent_change_7d);
+  sheet.getRange(i, 12).setValue(tkr.market_cap_usd);
+}
+
+function getResultJSON(){
+  var response = UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker");
+  var data = JSON.parse(response.getContentText());
+  
+  var result = {};
+
+  for(var i=0; i<data.length; i++){
+    result[data[i].symbol] = data[i];
+  }
+  result['SMART'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/smartcash/"))[0];
+  result['NCASH'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/nucleus-vision/"))[0];
+  result['WABI'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/wabi"))[0];
+  result['ONION'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/deeponion"))[0];
+  result['CVC'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/civic/"))[0];
+  result['CND'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/cindicator/"))[0];
+  result['ELF'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/aelf/"))[0];
+  result['ENG'] = JSON.parse(UrlFetchApp.fetch("https://api.coinmarketcap.com/v1/ticker/enigma/"))[0];
+  return result;
+}
